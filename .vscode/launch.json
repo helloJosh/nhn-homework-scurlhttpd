@@ -25,18 +25,16 @@
             "mainClass": "com.nhnacademy.scurl.ScurlMain",
             "projectName": "scurl",
             "args": [
-                "-v",
-                "-L",
-                "http://httpbin.org/status/302"
-
-                // "-X",
-                // "POST",
                 // "-v",
                 // "-d",
                 // "{\"hello\":\"world\"}",
                 // "-H",
                 // "Content-Type: application/json",
                 // "http://httpbin.org/post"
+                "-F",
+                "upload=@test.txt",
+                "-v",
+                "http://httpbin.org/post"
             ]
         }
     ]

@@ -13,6 +13,8 @@ import org.apache.commons.cli.ParseException;
 import com.nhnacademy.domain.Request;
 
 public class ScurlMain {
+    public static final String DEFAULT_VERSION = "HTTP/1.1";
+    public static final String CRLF = "\r\n";
     public static void main(String[] args) {
         
         Options options = new Options();
@@ -29,7 +31,11 @@ public class ScurlMain {
             // String host = s[2];
             // String url = s[3];
             String host = "httpbin.org";
-            String url = "status/302";
+            String path = "/post";
+            String method ="GET";
+            String customHeader="";
+            String body="";
+            String upload="";
             
 
             CommandLine cmd = parser.parse(options, args);
@@ -40,32 +46,29 @@ public class ScurlMain {
             }
 
             Scurl scurl = new Scurl(host, 80);
-            scurl.setUrl("/"+url);
-            scurl.setMethod("GET");
 
             if(argMap.containsKey("X")){
-                scurl.setMethod(argMap.get("X").toUpperCase());
+                method = argMap.get("X");
             } 
-            if(argMap.containsKey("v"))
+            if(argMap.containsKey("v")){
                 scurl.setShowHeader(true);
-            if(argMap.containsKey("H"))
-                scurl.setCustomHeader(argMap.get("H"));
-            if(argMap.containsKey("L"))
-                scurl.setHasRedirect(true);
-            if(argMap.containsKey("X") && argMap.containsKey("d") && argMap.containsKey("H")){
-                if(!argMap.get("X").toUpperCase().equals("POST")){
-                    throw new IllegalArgumentException("only post valid");
-                }
-                scurl.setMethod(argMap.get("X").toUpperCase());
-                scurl.setCustomHeader(argMap.get("H"));
-                scurl.setPostBody(argMap.get("d"));
             }
-
-            if(scurl.isHasRedirect())
-                scurl.requestRedirect();
-            else
-                scurl.requestHttp();
-
+            if(argMap.containsKey("H")){
+                customHeader = argMap.get("H");
+            }
+            if(argMap.containsKey("L")){
+                scurl.setRedirect(true);
+            }
+            if(argMap.containsKey("d")){
+                body = argMap.get("d");
+                method = "POST";
+            }
+            if(argMap.containsKey("F")){
+                method = "POST";
+                upload = argMap.get("F");
+            }
+            //scurl.requestPostFile("./test.txt");
+            scurl.request(method, path, DEFAULT_VERSION , customHeader, body, upload);
 
         } catch (ParseException e) {
         System.err.println(e.getMessage());
