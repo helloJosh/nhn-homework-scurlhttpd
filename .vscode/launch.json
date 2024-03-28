@@ -1,0 +1,43 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Testa",
+            "request": "launch",
+            "mainClass": "com.nhnacademy.scurl.Testa",
+            "projectName": "scurl"
+        },
+        {
+            "type": "java",
+            "name": "Test",
+            "request": "launch",
+            "mainClass": "com.nhnacademy.domain.Test",
+            "projectName": "scurl"
+        },
+        {
+            "type": "java",
+            "name": "ScurlMain",
+            "request": "launch",
+            "mainClass": "com.nhnacademy.scurl.ScurlMain",
+            "projectName": "scurl",
+            "args": [
+                "-v",
+                "-L",
+                "http://httpbin.org/status/302"
+
+                // "-X",
+                // "POST",
+                // "-v",
+                // "-d",
+                // "{\"hello\":\"world\"}",
+                // "-H",
+                // "Content-Type: application/json",
+                // "http://httpbin.org/post"
+            ]
+        }
+    ]
+}
